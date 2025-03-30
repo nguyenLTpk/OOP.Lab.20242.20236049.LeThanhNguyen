@@ -1,0 +1,122 @@
+Question 1: If you create a constructor method to build a DVD by title then create a constructor method to build a DVD by category. Does JAVA allow you to do this?
+
+Câu trả lời: không thể 
+
+
+public class DigitalVideoDisc {
+    private String title;
+    private String category;
+    private String director;
+    private int length;
+    private float cost;
+
+    public DigitalVideoDisc(String title) {
+        super();
+        this.title = title;
+    }
+    
+     public DigitalVideoDisc(String category) {
+        super();
+        this.category = category;
+    }   
+}
+
+Khi trình biên dịch Java gặp hai phương thức cùng tên và cùng kiểu tham số, nó không biết phải gọi constructor nào khi truyền một String. 
+
+
+Question 2: Is JAVA a Pass by Value or a Pass by Reference programming language?
+
+Câu trả lời: Java là ngôn ngữ truyền tham trị (Pass-by-Value), không phải truyền tham chiếu (Pass-by-Reference).
+
+- Với kiểu dữ liệu nguyên thủy
+Khi truyền kiểu dữ liệu nguyên thủy, chỉ có giá trị của biến được sao chép, nên thay đổi trong phương thức không ảnh hưởng đến giá trị ban đầu.
+public class Test {
+    public static void changeValue(int x) {
+        x = 10;
+    }
+
+    public static void main(String[] args) {
+        int a = 5;
+        changeValue(a);
+        System.out.println(a); // Kết quả vẫn là 5, vì a không bị thay đổi
+    }
+}
+
+- Với đối tượng (Object)
+Khi truyền một đối tượng, giá trị được sao chép chính là tham chiếu (reference) đến đối tượng đó, chứ không phải bản thân đối tượng. Tức là nếu thay đổi nội dung bên trong đối tượng, thì sự thay đổi sẽ được phản ánh bên ngoài phương thức.
+class DVD {
+    String title;
+
+    DVD(String title) {
+        this.title = title;
+    }
+}
+
+public class Test {
+    public static void changeTitle(DVD dvd) {
+        dvd.title = "New Title";
+    }
+
+    public static void main(String[] args) {
+        DVD myDVD = new DVD("Old Title");
+        changeTitle(myDVD);
+        System.out.println(myDVD.title); // Kết quả là "New Title"
+    }
+}
+
+
+
+Question 3:
+
+public class TestPassingParameter {
+
+    public static void main(String[] args) {
+       
+        DigitalVideoDisc jungleDVD = new DigitalVideoDisc("Jungle");
+        DigitalVideoDisc cinderellaDVD = new DigitalVideoDisc("Cinderella");
+
+        swap(jungleDVD, cinderellaDVD);
+        System.out.println("jungle dvd title: " + jungleDVD.getTitle());
+        System.out.println("cinderella dvd title: " + cinderellaDVD.getTitle());
+
+        changeTitle(jungleDVD, cinderellaDVD.getTitle());
+        System.out.println("jungle dvd title: " + jungleDVD.getTitle());
+    }
+
+    public static void swap(Object o1, Object o2) {
+        Object tmp = o1;
+        o1 = o2;
+        o2 = tmp;
+    }
+
+    public static void changeTitle(DigitalVideoDisc dvd, String title) {
+        String oldTitle = dvd.getTitle();
+        dvd.setTitle(title);
+        dvd = new DigitalVideoDisc(oldTitle);
+    }
+}
+
+
+● After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two objects still remain?
+   - Giải thích về phương thức swap(jungleDVD, cinderellaDVD):
+   - Phương thức swap(Object o1, Object o2) thực hiện tráo đổi tham chiếu giữa hai biến o1 và o2. 
+   - Tuy nhiên, do Java truyền tham số theo giá trị của tham chiếu (pass-by-value), nên chỉ có các bản sao của tham chiếu jungleDVD và cinderellaDVD được truyền vào hàm. 
+   - Khi tráo đổi, chỉ có các bản sao này thay đổi, còn các tham chiếu gốc bên ngoài không bị ảnh hưởng. 
+   -> Vì vậy, sau khi gọi swap(jungleDVD, cinderellaDVD), giá trị của jungleDVD và cinderellaDVD bên ngoài hàm không thay đổi, dẫn đến tiêu đề (title) của chúng vẫn giữ nguyên.
+
+● After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is the title of the JungleDVD changed?
+
+   - jungleDVD được truyền vào phương thức theo tham chiếu giá trị:
+   - jungleDVD là một tham chiếu đến đối tượng DigitalVideoDisc("Jungle").
+   - Phương thức changeTitle() nhận tham số dvd, tức là dvd sẽ tham chiếu cùng một đối tượng với jungleDVD.
+
+   Gọi dvd.setTitle(title); thì:
+   - title được truyền vào là tiêu đề của cinderellaDVD, tức "Cinderella".
+   - Lệnh này thực sự thay đổi tiêu đề của chính đối tượng mà dvd đang tham chiếu, nghĩa là jungleDVD cũng bị thay đổi thành "Cinderella".
+   - Gán dvd = new DigitalVideoDisc(oldTitle);:
+   - oldTitle lưu lại tiêu đề ban đầu của jungleDVD, tức "Jungle"
+   - dvd được gán một đối tượng mới có tiêu đề "Jungle", nhưng đây chỉ thay đổi tham chiếu cục bộ của dvd bên trong phương thức.
+   - jungleDVD bên ngoài không bị ảnh hưởng bởi việc gán này.
+
+   -> Kết quả: Tiêu đề của jungleDVD bị thay đổi thành "Cinderella" vì lời gọi dvd.setTitle(title), nhưng lệnh dvd = new DigitalVideoDisc(oldTitle); không có tác động bên ngoài phương thức.
+
