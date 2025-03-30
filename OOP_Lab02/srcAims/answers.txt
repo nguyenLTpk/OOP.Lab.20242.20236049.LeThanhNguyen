@@ -23,8 +23,24 @@ public class DigitalVideoDisc {
 
 Khi trình biên dịch Java gặp hai phương thức cùng tên và cùng kiểu tham số, nó không biết phải gọi constructor nào khi truyền một String. 
 
+Question 2: Try to add a method addDigitalVideoDisc which allows to pass an arbitrary number of arguments for dvd. Compared to an array parameter. What do you prefer in this case? 
 
-Question 2: Is JAVA a Pass by Value or a Pass by Reference programming language?
+public void addDigitalVideoDisc(DigitalVideoDisc... dvds) {
+    for (DigitalVideoDisc dvd : dvds) {
+        if (qtyOrdered < MAX_NUMBERS_ORDERED) {
+            itemOrdered[qtyOrdered] = dvd;
+            qtyOrdered++;
+            System.out.println("Đĩa đã được thêm");
+        } else {
+            System.out.println("Giỏ hàng gần đầy");
+            break; 
+        }
+    }
+}
+
+Cách này có thể hợp lý hơn vì giúp gọi phương thức dễ dàng, linh hoạt hơn mà không cần tạo mảng thủ công.
+
+Question 3: Is JAVA a Pass by Value or a Pass by Reference programming language?
 
 Câu trả lời: Java là ngôn ngữ truyền tham trị (Pass-by-Value), không phải truyền tham chiếu (Pass-by-Reference).
 
@@ -66,7 +82,7 @@ public class Test {
 
 
 
-Question 3:
+Question 4:
 
 public class TestPassingParameter {
 
