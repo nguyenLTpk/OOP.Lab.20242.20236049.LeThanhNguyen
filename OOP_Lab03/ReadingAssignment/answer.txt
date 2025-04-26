@@ -1,0 +1,16 @@
+1. Tính đa hình (Polymorphism) có những ưu điểm gì?
+Giúp code linh hoạt, dễ mở rộng và bảo trì.
+Cho phép dùng chung một interface hoặc lớp cha để xử lý nhiều loại đối tượng khác nhau.
+Hỗ trợ viết code ngắn gọn và dễ hiểu hơn.
+
+2. Kế thừa (Inheritance) hỗ trợ đa hình (Polymorphism) như thế nào?
+Nhờ kế thừa, lớp con có thể ghi đè (override) phương thức của lớp cha.
+Khi dùng tham chiếu lớp cha để gọi phương thức, chương trình sẽ gọi đúng phiên bản ở lớp con, từ đó đạt được đa hình.
+
+3. Sự khác nhau giữa Đa hình (Polymorphism) và Kế thừa (Inheritance) trong Java là gì?
+Kế thừa là cơ chế cho phép lớp con kế thừa thuộc tính và phương thức từ lớp cha, giúp tái sử dụng mã nguồn.
+Đa hình là khả năng cho phép đối tượng có thể được xử lý theo nhiều cách khác nhau thông qua cùng một interface hoặc lớp cha.
+Kế thừa là nền tảng để thực hiện đa hình (đa hình động qua ghi đè phương thức).
+Kế thừa liên quan đến mối quan hệ giữa các lớp; còn đa hình liên quan đến hành vi của đối tượng khi gọi phương thức.
+Kế thừa giúp tổ chức cấu trúc lớp; đa hình giúp tăng tính linh hoạt trong xử lý chương trình.
+
